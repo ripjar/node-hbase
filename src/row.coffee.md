@@ -90,12 +90,13 @@ Insert and update a column value, insert and update multiple column values or in
         cellsKeys = {}
         data.forEach (d) =>
           key = d.key or @key
+          key = utils.base64.encode key, @client.options.encoding
           cellsKeys[key] = []  unless key of cellsKeys
           cellsKeys[key].push d
         for k of cellsKeys
           cells = cellsKeys[k]
           bodyRow =
-            key: utils.base64.encode k, @client.options.encoding
+            key: k
             Cell: []
           for k1 of cells
             cell = cells[k1]
