@@ -81,7 +81,7 @@ Insert and update a column value, insert and update multiple column values or in
           bodyCell.$ = utils.base64.encode values[i], @client.options.encoding
           bodyRow.Cell.push bodyCell
         body.Row.push bodyRow
-        url = utils.url.encode table: @table, key: @key or "___false-row-key___", columns: columns
+        url = utils.url.encode table: @table, key: @key or "___node-client-false-row-key___", columns: columns
       # First argument is a full object with columns and values
       else
         data = args.shift()
@@ -106,7 +106,7 @@ Insert and update a column value, insert and update multiple column values or in
             bodyCell.$ = utils.base64.encode cell.$, @client.options.encoding
             bodyRow.Cell.push bodyCell
           body.Row.push bodyRow
-        url = utils.url.encode table: @table, key: @key or "___false-row-key___", columns: ['test:']
+        url = utils.url.encode table: @table, key: "___node-client-false-row-key___", columns: ['test:']
       @client.connection.put url, body, (error, data) =>
         return  unless callback
         callback.apply @, [error, (if error then null else true)]
