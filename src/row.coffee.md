@@ -46,7 +46,10 @@ Retrieve values from HBase or retrieve values from multiple rows.
             data.key = key if isGlob
             data.column = utils.base64.decode cell.column, @client.options.encoding
             data.timestamp = cell.timestamp
-            data.$ = utils.base64.decode cell.$, @client.options.encoding
+            if options.returnBuffer
+                data.$ = Buffer.from(cell.$, "base64")
+            else
+                data.$ = utils.base64.decode cell.$, @client.options.encoding
             cells.push data
         args[0].apply @, [null, cells]
 
